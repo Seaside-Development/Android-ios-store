@@ -67,12 +67,12 @@ const styles = StyleSheet.create({
     marginVertical: 2,
   },
   description: {
-    fontFamily: 'open-sans-bold',
+    fontFamily: 'OpenSansBold',
     fontSize: 12,
     marginVertical: 2,
   },
   price: {
-    fontFamily: 'open-sans',
+    fontFamily: 'OpenSansRegular',
     fontSize: 14,
     color: '#888',
   },

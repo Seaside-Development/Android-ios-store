@@ -15,6 +15,15 @@ const styles = StyleSheet.create({
     flex: 1,
     marginTop: StatusBar.currentHeight,
   },
+  title: {
+    fontFamily: 'OpenSansBold',
+    fontSize: 18,
+    marginVertical: 2,
+  },
+  imageContainer: {
+    width: '100%',
+    height: 100,
+  }
 });
 
 export default ProductsDetailsScreen;

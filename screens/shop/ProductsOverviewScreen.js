@@ -60,14 +60,19 @@ const ProductsOverviewScreen = (props, route, navigation) => {
                   style={styles.image}
                   source={{uri: itemData.item.imageURL}}
                   onPress={() => {
-                    props.navigation.navigate('ProductsDetails');
+                    props.navigation.navigate('ProductsDetails', {
+                      productName: itemData.item.name,
+                      productID: itemData.item.id,
+                      productPrice: itemData.item.price,
+                      productImage: itemData.item.imageURL,
+                    });
                   }}
                 />
                 <View style={styles.actions}>
                   <Button
                     title="SEE MORE"
                     onPress={() => {
-                      props.navigation.navigate('ProductsDetails', {});
+                        selectProductHandler(itemData.item.name, itemData.item.id,itemData.item.imageURL)
                     }}
                   />
                   <Button title="ADD TO CART" onPress={() => {}} />
