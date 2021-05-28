@@ -26,7 +26,7 @@ const CategoryItem = props => {
               <Image style={styles.image} source={{uri: props.image}} />
             </View>
             <View style={styles.details}>
-              <Text style={styles.title}>{props.name}</Text>
+              <Text style={styles.title}>{props.name.toUpperCase()}</Text>
               <Text style={styles.description}>{props.description}</Text>
             </View>
             <View style={styles.actions}>{props.children}</View>
@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   title: {
-    fontFamily: 'open-sans-bold',
+    fontFamily: 'OpenSansBold',
     fontSize: 18,
     marginVertical: 2,
   },

@@ -1,18 +1,23 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {Image, StyleSheet, Text, View} from 'react-native';
 import Animated from 'react-native-reanimated';
 import {MaterialIcons} from '@expo/vector-icons';
 
 export default function HeaderComponent({navigation}) {
   const openMenu = () => {
-    Animated.interpolate(navigation.openDrawer());
+    Animated.interpolate(navigation.openDrawer, {
+      inputRange: [0, 1],
+      outputRange: [-100, 0],
+      extrapolate: Extrapolate.CLAMP}
+    );
   };
+
   return (
     <View style={styles.header}>
-      <MaterialIcons
+      <Image
+          source={require('../assets/headerIcon.png')}
         name="menu"
         size={28}
-        onPress={openMenu}
         style={styles.icon}
       />
       <View>
@@ -21,6 +26,11 @@ export default function HeaderComponent({navigation}) {
     </View>
   );
 }
+
+const {
+  interpolate,
+  Extrapolate
+} = Animated;
 
 const styles = StyleSheet.create({
   header: {
@@ -38,6 +48,8 @@ const styles = StyleSheet.create({
   },
   icon: {
     position: 'absolute',
+    width: 30,
+    height: 30,
     left: 16,
   },
 });

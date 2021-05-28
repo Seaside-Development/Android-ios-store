@@ -102,12 +102,12 @@ const styles = StyleSheet.create({
     height: 220,
   },
   title: {
-    fontFamily: 'OpenSans-Bold',
+    fontFamily: 'OpenSansBold',
     fontSize: 18,
     marginVertical: 2,
   },
   price: {
-    fontFamily: 'OpenSans-Regular',
+    fontFamily: 'OpenSansRegular',
     fontWeight: 'bold',
     fontSize: 14,
     color: '#888',

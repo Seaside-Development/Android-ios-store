@@ -7,14 +7,17 @@
  */
 import 'react-native-gesture-handler';
 import {StatusBar as ExpoStatusBar} from 'expo-status-bar';
+import * as Font from 'expo-font';
+import { useFonts } from 'expo-font';
 import React from 'react';
 import {Provider} from 'react-redux';
 import {createStore, combineReducers} from 'redux';
 import {StatusBar, StyleSheet, SafeAreaView} from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
 
 import categoryReducer from './store/reducers/category';
 import productReducer from './store/reducers/products';
-import ShopNavigator from './navigation/ShopNavigator';
+import Navigator from './navigation/ShopNavigator';
 
 const rootReducer = combineReducers({
   categories: categoryReducer,
@@ -24,10 +27,27 @@ const rootReducer = combineReducers({
 const store = createStore(rootReducer);
 
 export default function App() {
+
+    const [loaded] = useFonts({
+        OpenSansBold: require('./assets/fonts/OpenSans-Bold.ttf'),
+        OpenSansBoldItalic: require('./assets/fonts/OpenSans-BoldItalic.ttf'),
+        OpenSansExtraBold: require('./assets/fonts/OpenSans-ExtraBold.ttf'),
+        OpenSansExtraBoldItalic: require('./assets/fonts/OpenSans-ExtraBoldItalic.ttf'),
+        OpenSansItalic: require('./assets/fonts/OpenSans-Italic.ttf'),
+        OpenSansLight: require('./assets/fonts/OpenSans-Light.ttf'),
+        OpenSansRegular: require('./assets/fonts/OpenSans-Regular.ttf'),
+        OpenSansSemiBold: require('./assets/fonts/OpenSans-SemiBold.ttf'),
+    });
+
+    if (!loaded) {
+        return null;
+    }
   return (
       <Provider store={store}>
         <SafeAreaView style={styles.container}>
-          <ShopNavigator />
+            {/*<NavigationContainer>*/}
+              <Navigator />
+          {/*</NavigationContainer>*/}
         </SafeAreaView>
         <ExpoStatusBar style="auto" />
       </Provider>
