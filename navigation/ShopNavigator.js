@@ -45,6 +45,10 @@ const ShopNavigator = createStackNavigator(screens, {
       backgroundColor: Platform.OS === 'android' ? Colors.primary : '',
       height: 45,
     },
+    headerTitleStyle: 'OpenSansExtraBold',
+    headerBackTitleStyle: {
+      fontFamily: 'OpenSansExtraBold',
+    },
     headerTintColor: Platform.OS === 'android' ? 'black' : Colors.primary,
   },
 });

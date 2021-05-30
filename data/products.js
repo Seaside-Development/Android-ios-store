@@ -67,14 +67,14 @@ const STORE = [
   new Products(
     10,
     'sneakers',
-    'Ad"id"as NMD',
+    'Adidas NMD',
     'https://i.ibb.co/0s3pdnc/ad"id"as-nmd.png',
     220,
   ),
   new Products(
     11,
     'sneakers',
-    'Ad"id"as Yeezy',
+    'Adidas Yeezy',
     'https://i.ibb.co/dJbG1cT/yeezy.png',
     280,
   ),

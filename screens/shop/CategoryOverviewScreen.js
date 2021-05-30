@@ -17,7 +17,7 @@ const CategoryOverviewScreen = ({navigation}) => {
   return (
     <FlatList
       data={categories}
-      keyExtractor={item => item.id}
+      keyExtractor={item => item.id.toString()}
       renderItem={itemData => (
         <CategoryItem
           image={itemData.item.imageURL}

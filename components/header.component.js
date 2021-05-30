@@ -3,22 +3,14 @@ import {Image, StyleSheet, Text, View} from 'react-native';
 import Animated from 'react-native-reanimated';
 import {MaterialIcons} from '@expo/vector-icons';
 
-export default function HeaderComponent({navigation}) {
-  const openMenu = () => {
-    Animated.interpolate(navigation.openDrawer, {
-      inputRange: [0, 1],
-      outputRange: [-100, 0],
-      extrapolate: Extrapolate.CLAMP}
-    );
-  };
-
+export default function HeaderComponent() {
   return (
     <View style={styles.header}>
       <Image
           source={require('../assets/headerIcon.png')}
-        name="menu"
-        size={28}
-        style={styles.icon}
+          name="menu"
+          size={28}
+          style={styles.icon}
       />
       <View>
         <Text style={styles.headerText}>APP</Text>
@@ -26,11 +18,6 @@ export default function HeaderComponent({navigation}) {
     </View>
   );
 }
-
-const {
-  interpolate,
-  Extrapolate
-} = Animated;
 
 const styles = StyleSheet.create({
   header: {

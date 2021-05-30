@@ -7,24 +7,25 @@
  */
 import 'react-native-gesture-handler';
 import {StatusBar as ExpoStatusBar} from 'expo-status-bar';
-import * as Font from 'expo-font';
 import { useFonts } from 'expo-font';
 import React from 'react';
 import {Provider} from 'react-redux';
 import {createStore, combineReducers} from 'redux';
 import {StatusBar, StyleSheet, SafeAreaView} from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
+import {composeWithDevTools} from 'redux-devtools-extension'
 
+import Navigator from './navigation/ShopNavigator';
 import categoryReducer from './store/reducers/category';
 import productReducer from './store/reducers/products';
-import Navigator from './navigation/ShopNavigator';
+import cartReducer from "./store/reducers/cart";
 
 const rootReducer = combineReducers({
-  categories: categoryReducer,
-  products: productReducer,
+    categories: categoryReducer,
+    products: productReducer,
+    cart: cartReducer,
 });
 
-const store = createStore(rootReducer);
+const store = createStore(rootReducer, composeWithDevTools());
 
 export default function App() {
 
@@ -45,9 +46,7 @@ export default function App() {
   return (
       <Provider store={store}>
         <SafeAreaView style={styles.container}>
-            {/*<NavigationContainer>*/}
               <Navigator />
-          {/*</NavigationContainer>*/}
         </SafeAreaView>
         <ExpoStatusBar style="auto" />
       </Provider>

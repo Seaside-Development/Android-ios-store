@@ -9,8 +9,8 @@ import {
 } from 'react-native';
 
 import {Card, Button} from 'react-native-elements';
-import {useSelector} from 'react-redux';
-import CategoryOverviewScreen from './CategoryOverviewScreen';
+import * as cartActions from '../../store/action/cart'
+import {useDispatch, useSelector} from 'react-redux';
 
 // const productURL =
 //   'https://reactstore-836e1-default-rtdb.firebaseio.com/Products.json';
@@ -40,6 +40,8 @@ const ProductsOverviewScreen = (props, route, navigation) => {
     TouchableCmp = TouchableNativeFeedback;
   }
 
+  const dispatch = useDispatch();
+
   return (
     // <SafeAreaView style={styles.container}>
     //   {isLoading ? (
@@ -53,9 +55,9 @@ const ProductsOverviewScreen = (props, route, navigation) => {
           <View style={styles.touchable}>
             <TouchableCmp onPress={props.onSelect} useForeground>
               <Card style={styles.card}>
-                <Card.Title>{itemData.item.name}</Card.Title>
+                <Card.Title>{itemData.item.name.toString()}</Card.Title>
                 <Card.Title style={styles.price}>
-                  ${itemData.item.price}
+                  ${itemData.item.price.toFixed(2)}
                 </Card.Title>
                 <Card.Image
                   style={styles.image}
@@ -81,7 +83,11 @@ const ProductsOverviewScreen = (props, route, navigation) => {
                       });
                     }}
                   />
-                  <Button title="ADD TO CART" onPress={() => {}} />
+                  <Button
+                      title="ADD TO CART"
+                      onPress={() => {
+                        dispatch(cartActions.addItem(itemData.item)
+                      )}} />
                 </View>
               </Card>
             </TouchableCmp>
