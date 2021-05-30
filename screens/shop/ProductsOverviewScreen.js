@@ -39,6 +39,7 @@ const ProductsOverviewScreen = (props, route, navigation) => {
   if (Platform.OS === 'android' && Platform.Version >= 21) {
     TouchableCmp = TouchableNativeFeedback;
   }
+
   return (
     // <SafeAreaView style={styles.container}>
     //   {isLoading ? (
@@ -72,7 +73,12 @@ const ProductsOverviewScreen = (props, route, navigation) => {
                   <Button
                     title="SEE MORE"
                     onPress={() => {
-                        selectProductHandler(itemData.item.name, itemData.item.id,itemData.item.imageURL)
+                      props.navigation.navigate('ProductsDetails', {
+                        productName: itemData.item.name,
+                        productID: itemData.item.id,
+                        productPrice: itemData.item.price,
+                        productImage: itemData.item.imageURL,
+                      });
                     }}
                   />
                   <Button title="ADD TO CART" onPress={() => {}} />
@@ -126,9 +132,9 @@ const styles = StyleSheet.create({
   },
 });
 
-CategoryOverviewScreen.navigationOptions = route => {
+ProductsOverviewScreen.navigationOptions = navData => {
   return {
-    title: route.navigation.getParam('categoryName'),
+    headerTitle: navData.navigation.getParam('categoryName').toUpperCase(),
   };
 };
 
