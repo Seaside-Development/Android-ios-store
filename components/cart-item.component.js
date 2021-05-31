@@ -17,7 +17,6 @@ const CartItem = ({deletable, onRemove, item: {price, name, quantity}}) => {
             <View style={styles.itemData}>
                 <Text style={styles.quantity}>{quantity} </Text>
                 <Text style={styles.mainText}>{name}</Text>
-                <Text style={styles.price}>{'  '}${price}</Text>
             </View>
             <View style={styles.itemData}>
                 <Text style={styles.mainText}>total: ${quantity * price}</Text>
@@ -43,7 +42,6 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         flexDirection: 'row',
         justifyContent: 'space-between',
-        marginHorizontal: 10,
         overflow: 'hidden'
     },
     itemData: {
@@ -57,10 +55,6 @@ const styles = StyleSheet.create({
     },
     mainText: {
         fontFamily: 'OpenSansBold',
-        fontSize: 16
-    },
-    price: {
-        fontFamily: 'OpenSansRegular',
         fontSize: 16
     },
     deleteButton: {
