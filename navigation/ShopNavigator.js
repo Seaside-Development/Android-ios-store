@@ -7,6 +7,7 @@ import CategoryOverviewScreen from '../screens/shop/CategoryOverviewScreen';
 import ProductsOverviewScreen from '../screens/shop/ProductsOverviewScreen';
 import ProductsDetailsScreen from '../screens/shop/ProductDetailsScreen';
 import ProductListScreen from '../screens/store/ProductListScreen';
+import CartScreen from "../screens/shop/CartScreen";
 
 import HeaderComponent from '../components/header.component';
 import Colors from '../constants/Colors';
@@ -25,6 +26,12 @@ const screens = {
     navigationOptions: {
       title: 'PRODUCT OVERVIEW',
     },
+  },
+  Cart: {
+    screen: CartScreen,
+    navigationOptions: {
+      title: 'CART',
+    }
   },
   ProductsDetails: {
     screen: ProductsDetailsScreen,

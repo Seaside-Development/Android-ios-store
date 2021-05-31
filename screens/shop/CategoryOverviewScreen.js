@@ -4,6 +4,7 @@ import {useSelector} from 'react-redux';
 import CategoryItem from '../../components/card.component';
 import HeaderButton from '../../UI/HeaderButton';
 import {HeaderButtons, Item} from 'react-navigation-header-buttons';
+import Colors from "../../constants/Colors";
 
 const CategoryOverviewScreen = ({navigation}) => {
   const categories = useSelector(state => state.categories.availableProducts);
@@ -28,14 +29,16 @@ const CategoryOverviewScreen = ({navigation}) => {
             selectCategoryHandler(itemData.item.name);
           }}>
           <Button
-            title="VIEW MORE"
-            onPress={() => {
+              color={Colors.primary}
+              title="VIEW MORE"
+              onPress={() => {
               selectCategoryHandler(itemData.item.name);
             }}
           />
           <Button
-            title="SEE LIST"
-            onPress={() => {
+              color={Colors.primary}
+              title="SEE LIST"
+              onPress={() => {
               navigation.navigate('ProductList', {
                 categoryName: itemData.item.name,
               });
@@ -45,6 +48,22 @@ const CategoryOverviewScreen = ({navigation}) => {
       )}
     />
   );
+};
+
+CategoryOverviewScreen.navigationOptions = navData => {
+    return {
+        headerRight: () =>
+            <HeaderButtons
+                HeaderButtonComponent={HeaderButton}>
+                <Item
+                    title='Cart'
+                    iconName='md-cart'
+                    onPress={() => {
+                        navData.navigation.navigate('Cart');
+                    }}
+                />
+            </HeaderButtons>
+    };
 };
 
 export default CategoryOverviewScreen;

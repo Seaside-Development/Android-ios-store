@@ -6,22 +6,23 @@ import {
   TouchableOpacity,
   Platform,
   TouchableNativeFeedback,
+  Button
 } from 'react-native';
 
-import {Card, Button} from 'react-native-elements';
+import {Card} from 'react-native-elements';
 import * as cartActions from '../../store/action/cart'
 import {useDispatch, useSelector} from 'react-redux';
+import Colors from "../../constants/Colors";
+import {HeaderButtons, Item} from "react-navigation-header-buttons";
+import HeaderButton from '../../UI/HeaderButton';
 
 // const productURL =
 //   'https://reactstore-836e1-default-rtdb.firebaseio.com/Products.json';
 
 const ProductsOverviewScreen = (props, route, navigation) => {
-  //get the parameter
   const categoryName = props.navigation.getParam('categoryName');
   console.log(categoryName);
-  //retrieve the array
   const products = useSelector(state => state.products.storeProducts);
-  //filter the results based on the paramter
   const data = products.filter(item => item.category === categoryName);
 
   // const [isLoading, setLoading] = useState([]);
@@ -35,7 +36,6 @@ const ProductsOverviewScreen = (props, route, navigation) => {
   // }, []);
 
   let TouchableCmp = TouchableOpacity;
-
   if (Platform.OS === 'android' && Platform.Version >= 21) {
     TouchableCmp = TouchableNativeFeedback;
   }
@@ -73,8 +73,9 @@ const ProductsOverviewScreen = (props, route, navigation) => {
                 />
                 <View style={styles.actions}>
                   <Button
-                    title="SEE MORE"
-                    onPress={() => {
+                      color={Colors.primary}
+                      title="SEE MORE"
+                      onPress={() => {
                       props.navigation.navigate('ProductsDetails', {
                         productName: itemData.item.name,
                         productID: itemData.item.id,
@@ -84,10 +85,11 @@ const ProductsOverviewScreen = (props, route, navigation) => {
                     }}
                   />
                   <Button
+                      color={Colors.primary}
                       title="ADD TO CART"
                       onPress={() => {
-                        dispatch(cartActions.addItem(itemData.item)
-                      )}} />
+                        dispatch(cartActions.addItem(itemData.item))}}
+                  />
                 </View>
               </Card>
             </TouchableCmp>
@@ -141,6 +143,17 @@ const styles = StyleSheet.create({
 ProductsOverviewScreen.navigationOptions = navData => {
   return {
     headerTitle: navData.navigation.getParam('categoryName').toUpperCase(),
+    headerRight: () =>
+        <HeaderButtons
+            HeaderButtonComponent={HeaderButton}>
+          <Item
+              title='Cart'
+              iconName='md-cart'
+              onPress={() => {
+                navData.navigation.navigate('Cart');
+              }}
+          />
+        </HeaderButtons>
   };
 };
 

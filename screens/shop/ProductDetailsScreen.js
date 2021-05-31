@@ -12,6 +12,9 @@ import {
   Button
 } from 'react-native';
 import Colors from '../../constants/Colors'
+import {HeaderButtons, Item} from "react-navigation-header-buttons";
+import HeaderButton from "../../UI/HeaderButton";
+import ClickAlert from '../../components/alert.component'
 
 const ProductsDetailsScreen = (props) => {
   const productID = props.navigation.getParam('productID');
@@ -23,7 +26,6 @@ const ProductsDetailsScreen = (props) => {
           .find(prod => prod.id === productID));
 
   const dispatch = useDispatch();
-
   return (
       <ScrollView>
         <SafeAreaView style={styles.container}>
@@ -35,8 +37,7 @@ const ProductsDetailsScreen = (props) => {
             <Button
                 color={Colors.primary}
                 title="ADD TO CART"
-                // onPress={() => cartActions.addItem(selectedProduct)}
-                onPress={() =>  {dispatch(cartActions.addItem(selectedProduct))}}
+                onPress={() =>  {ClickAlert(); dispatch(cartActions.addItem(selectedProduct))}}
             />
           </View>
           <Text style={styles.price}>
@@ -82,6 +83,17 @@ const styles = StyleSheet.create({
 ProductsDetailsScreen.navigationOptions = navData => {
   return {
     headerTitle: navData.navigation.getParam('productName').toUpperCase(),
+    headerRight: () =>
+        <HeaderButtons
+            HeaderButtonComponent={HeaderButton}>
+          <Item
+              title='Cart'
+              iconName='md-cart'
+              onPress={() => {
+                navData.navigation.navigate('Cart');
+              }}
+          />
+        </HeaderButtons>
   };
 }
 

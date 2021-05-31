@@ -8,7 +8,7 @@ export default function HeaderComponent() {
     <View style={styles.header}>
       <Image
           source={require('../assets/headerIcon.png')}
-          name="menu"
+          name="icon"
           size={28}
           style={styles.icon}
       />
@@ -32,6 +32,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: '#000000',
     letterSpacing: 1,
+    marginLeft: '54%',
   },
   icon: {
     position: 'absolute',
