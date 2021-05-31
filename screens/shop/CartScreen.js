@@ -1,5 +1,11 @@
-import React from 'react';
-import {View, Text, FlatList, StyleSheet, Button} from 'react-native';
+import React, {useState} from 'react';
+import {
+    View,
+    Text,
+    StyleSheet,
+    Button,
+    ActivityIndicator
+} from 'react-native';
 import {useSelector, useDispatch} from "react-redux";
 import {selectCartItems, selectCartTotal} from "../../store/selectors/cart";
 import Colors from "../../constants/Colors";
@@ -9,6 +15,7 @@ import Card from "../../UI/card";
 import * as cartActions from '../../store/action/cart';
 
 const CartScreen = props => {
+    const [isLoading, setIsLoading] = useState(false);
     const {total, cartItems} = useSelector(createStructuredSelector
     ({
             cartItems: selectCartItems,
@@ -16,6 +23,12 @@ const CartScreen = props => {
     }
     ));
     const dispatch = useDispatch();
+
+    const sendOrderHandler = async () => {
+        setIsLoading(true);
+        await dispatch(cartActions.updateCartInFirebase(cartItems));
+        setIsLoading(false);
+    };
     return (
         <View style={styles.screen}>
             <Card>
@@ -23,16 +36,28 @@ const CartScreen = props => {
                     <Text style={styles.summaryText}>
                         TOTAL: <Text style={styles.amount}>${total.toFixed(2)}</Text>
                     </Text>
-                    <Button
-                        color={Colors.accent}
-                        title='CHECK OUT' onPress={() => {}} />
+                    {isLoading ? (
+                        <ActivityIndicator size="small" color={Colors.primary} />
+                    ) : (
+                        <Button
+                            disabled={cartItems.length === 0}
+                            color={Colors.accent}
+                            title='CHECK OUT' onPress={() => {}} />
+                    )}
                 </View>
             </Card>
             <View style={styles.items}>
                  <Text>Cart Items:</Text>
                  {cartItems.length ? (
                     cartItems.map(cartItem => (
-                        <CartItem key={cartItem.id} item={cartItem} />
+                        <CartItem
+                            key={cartItem.id}
+                            item={cartItem}
+                            deletable
+                            onRemove={() => {
+                                dispatch(cartActions.removeItem(cartItem));
+                            }}
+                        />
                     ))
                 ) : (
                     <Text>Your cart is empty</Text>

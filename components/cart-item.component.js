@@ -7,9 +7,11 @@ import { View,
     Platform
 } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
+import * as cartActions from '../store/action/cart';
+import {useDispatch} from "react-redux";
 
-
-const CartItem = ({item: {price, name, quantity}}) => {
+const CartItem = ({deletable, onRemove, item: {price, name, quantity}}) => {
+    const dispatch = useDispatch();
     return (
         <View style={styles.cartItem}>
             <View style={styles.itemData}>
@@ -18,7 +20,19 @@ const CartItem = ({item: {price, name, quantity}}) => {
                 <Text style={styles.price}>{'  '}${price}</Text>
             </View>
             <View style={styles.itemData}>
-                <Text style={styles.mainText}>total: ${quantity * price.toFixed(2)}</Text>
+                <Text style={styles.mainText}>total: ${quantity * price}</Text>
+                {deletable && (
+                    <TouchableOpacity
+                        onPress={onRemove}
+                        style={styles.deleteButton}
+                    >
+                        <Ionicons
+                            name={Platform.OS === 'android' ? 'md-trash' : 'ios-trash'}
+                            size={23}
+                            color="red"
+                        />
+                    </TouchableOpacity>
+                )}
             </View>
         </View>
     )
@@ -26,7 +40,6 @@ const CartItem = ({item: {price, name, quantity}}) => {
 
 const styles = StyleSheet.create({
     cartItem: {
-        padding: 5,
         backgroundColor: 'white',
         flexDirection: 'row',
         justifyContent: 'space-between',
