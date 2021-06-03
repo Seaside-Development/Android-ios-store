@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect } from 'react';
 import {
     View,
     Text,
@@ -7,15 +7,21 @@ import {
     ActivityIndicator
 } from 'react-native';
 import {useSelector, useDispatch} from "react-redux";
-import {selectCartItems, selectCartTotal} from "../../store/selectors/cart";
-import Colors from "../../constants/Colors";
 import {createStructuredSelector} from "reselect";
+import {selectCartItems, selectCartTotal} from "../../store/selectors/cart";
+import * as Analytics from 'expo-firebase-analytics';
+
+import Colors from "../../constants/Colors";
 import CartItem from "../../components/cart-item.component";
 import Card from "../../UI/card";
+
 import * as cartActions from '../../store/action/cart';
+import * as Location from 'expo-location';
 
 const CartScreen = props => {
     const [isLoading, setIsLoading] = useState(false);
+    const [location, setLocation] = useState(null);
+    const [errorMsg, setErrorMsg] = useState(null);
     const {total, cartItems} = useSelector(createStructuredSelector
     ({
             cartItems: selectCartItems,
@@ -24,11 +30,31 @@ const CartScreen = props => {
     ));
     const dispatch = useDispatch();
 
+    useEffect(() => {
+        (async () => {
+            let { status } = await Location.requestForegroundPermissionsAsync();
+            if (status !== 'granted') {
+                setErrorMsg('Permission to access location was denied');
+                return;
+            }
+            let location = await Location.getCurrentPositionAsync({});
+            setLocation(location);
+        })();
+    }, []);
+
+    let text = 'Waiting..';
+    if (errorMsg) {
+        text = errorMsg;
+    } else if (location) {
+        text = JSON.stringify(location);
+    }
+
     const sendOrderHandler = async () => {
         setIsLoading(true);
         await dispatch(cartActions.updateCartInFirebase(cartItems));
         setIsLoading(false);
     };
+
     return (
         <View style={styles.screen}>
             <Card>
@@ -42,7 +68,9 @@ const CartScreen = props => {
                         <Button
                             disabled={cartItems.length === 0}
                             color={Colors.accent}
-                            title='CHECK OUT' onPress={() => {}} />
+                            title='CHECK OUT'
+                            onPress={async () => {}}
+                        />
                     )}
                 </View>
             </Card>

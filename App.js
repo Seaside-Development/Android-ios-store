@@ -11,6 +11,10 @@ import { useFonts } from 'expo-font';
 import React from 'react';
 import {Provider} from 'react-redux';
 import {createStore, combineReducers} from 'redux';
+import {persistReducer, persistStore} from "redux-persist";
+import { PersistGate} from "redux-persist/integration/react";
+
+import storage from 'redux-persist/lib/storage';
 import {StatusBar, StyleSheet, SafeAreaView} from 'react-native';
 import {composeWithDevTools} from 'redux-devtools-extension'
 
@@ -18,14 +22,25 @@ import Navigator from './navigation/ShopNavigator';
 import categoryReducer from './store/reducers/category';
 import productReducer from './store/reducers/products';
 import cartReducer from "./store/reducers/cart";
+import userReducer from "./store/reducers/user";
+
+const persistConfig = {
+    key: 'root',
+    storage,
+    whitelist: ['cart']
+}
+
 
 const rootReducer = combineReducers({
     categories: categoryReducer,
     products: productReducer,
     cart: cartReducer,
+    user: userReducer,
 });
 
-const store = createStore(rootReducer, composeWithDevTools());
+const persist = persistReducer(persistConfig, rootReducer);
+const store = createStore(persist, composeWithDevTools());
+const persistor = persistStore(store);
 
 export default function App() {
 
@@ -45,10 +60,12 @@ export default function App() {
     }
   return (
       <Provider store={store}>
-        <SafeAreaView style={styles.container}>
-              <Navigator />
-        </SafeAreaView>
-        <ExpoStatusBar style="auto" />
+          <PersistGate persistor={persistor}>
+              <SafeAreaView style={styles.container}>
+                  <Navigator />
+              </SafeAreaView>
+              <ExpoStatusBar style="auto" />
+          </PersistGate>
       </Provider>
   );
 }

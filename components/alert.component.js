@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Tooltip, Text } from 'react-native-elements';
 
 function ClickAlert() {

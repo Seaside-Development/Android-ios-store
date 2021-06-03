@@ -3,15 +3,11 @@ import { View,
     Text,
     StyleSheet,
     TouchableOpacity,
-    StatusBar,
     Platform
 } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
-import * as cartActions from '../store/action/cart';
-import {useDispatch} from "react-redux";
 
 const CartItem = ({deletable, onRemove, item: {price, name, quantity}}) => {
-    const dispatch = useDispatch();
     return (
         <View style={styles.cartItem}>
             <View style={styles.itemData}>

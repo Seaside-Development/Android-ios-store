@@ -18,4 +18,8 @@ target 'myapp' do
   #     flipper_post_install(installer)
   #   end
   # end
+  pod 'react-native-location', :path => '../node_modules/react-native-location'
+
+  pod 'react-native-google-analytics-bridge', :path => '../node_modules/react-native-google-analytics-bridge'
+
 end

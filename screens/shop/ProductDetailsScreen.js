@@ -15,6 +15,7 @@ import Colors from '../../constants/Colors'
 import {HeaderButtons, Item} from "react-navigation-header-buttons";
 import HeaderButton from "../../UI/HeaderButton";
 import ClickAlert from '../../components/alert.component'
+import * as Analytics from 'expo-firebase-analytics';
 
 const ProductsDetailsScreen = (props) => {
   const productID = props.navigation.getParam('productID');
@@ -37,7 +38,15 @@ const ProductsDetailsScreen = (props) => {
             <Button
                 color={Colors.primary}
                 title="ADD TO CART"
-                onPress={() =>  {ClickAlert(); dispatch(cartActions.addItem(selectedProduct))}}
+                onPress={async () =>
+                {ClickAlert(); dispatch(cartActions.addItem(selectedProduct));
+                  await Analytics.logEvent('ButtonTapped',
+                      {
+                        name: 'add to cart',
+                        screen: 'productDetails',
+                        purpose: 'add item to cart',
+                      })
+                }}
             />
           </View>
           <Text style={styles.price}>

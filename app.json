@@ -5,6 +5,19 @@
     "name": "my-app",
     "slug": "my-app",
     "version": "1.0.0",
+    "web": {
+      "config": {
+        "firebase": {
+          "apiKey": "AIzaSyA6w5l4Jkmdv9EJ-ykGMyuAkOuri3WJzbw",
+          "authDomain": "reactstore-836e1.firebaseapp.com",
+          "projectId": "reactstore-836e1",
+          "storageBucket": "reactstore-836e1.appspot.com",
+          "messagingSenderId": "17091716918",
+          "appId": "1:17091716918:web:6173b71cf0aca62881f597",
+          "measurementId": "G-60WYT46HBV"
+        }
+      }
+    },
     "platforms": [
       "ios",
       "android",
@@ -27,7 +40,8 @@
       "supportsTablet": true
     },
     "android": {
-      "package": "com.myapp"
+      "package": "com.myapp",
+      "googleServicesFile": "./google-services.json"
     }
   }
 }
