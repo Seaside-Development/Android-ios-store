@@ -4,12 +4,11 @@ import {
     Text,
     StyleSheet,
     Button,
-    ActivityIndicator
+    ActivityIndicator, Image
 } from 'react-native';
 import {useSelector, useDispatch} from "react-redux";
 import {createStructuredSelector} from "reselect";
 import {selectCartItems, selectCartTotal} from "../../store/selectors/cart";
-import * as Analytics from 'expo-firebase-analytics';
 
 import Colors from "../../constants/Colors";
 import CartItem from "../../components/cart-item.component";
@@ -69,28 +68,36 @@ const CartScreen = props => {
                             disabled={cartItems.length === 0}
                             color={Colors.accent}
                             title='CHECK OUT'
-                            onPress={async () => {}}
+                            onPress={async () => {props.navigation.navigate('Checkout', {total})}}
                         />
                     )}
                 </View>
             </Card>
-            <View style={styles.items}>
-                 <Text>Cart Items:</Text>
-                 {cartItems.length ? (
-                    cartItems.map(cartItem => (
-                        <CartItem
-                            key={cartItem.id}
-                            item={cartItem}
-                            deletable
-                            onRemove={() => {
-                                dispatch(cartActions.removeItem(cartItem));
-                            }}
-                        />
-                    ))
-                ) : (
-                    <Text>Your cart is empty</Text>
-                )}
-            </View>
+            <Card View style={styles.items}>
+                <View>
+                    {cartItems.length ? (
+                        cartItems.map(cartItem => (
+                            <CartItem
+                                key={cartItem.id}
+                                item={cartItem}
+                                deletable
+                                onRemove={() => {
+                                    dispatch(cartActions.removeItem(cartItem));
+                                }}
+                            />
+                        ))
+                    ) : (
+                        <View style={styles.emptyCart}>
+                            <Image
+                                source={require('../../assets/emptycart.png')}
+                                name="emptyCart"
+                                style={styles.icon}
+                            />
+                            <Text>Your cart is empty!</Text>
+                        </View>
+                    )}
+                </View>
+            </Card>
         </View>
     );
 }
@@ -98,10 +105,12 @@ const CartScreen = props => {
 
 const styles = StyleSheet.create({
     screen: {
-        margin: 20
+        margin: 12
     },
     items: {
         color: 'black',
+        marginTop: 20,
+        padding: 5,
     },
     summary: {
         flexDirection: 'row',
@@ -117,6 +126,14 @@ const styles = StyleSheet.create({
     },
     amount: {
         color: Colors.primary,
+    },
+    icon: {
+        width: 50,
+        height: 50,
+    },
+    emptyCart: {
+        alignItems: 'center',
+        textAlign: 'center'
     }
 });
 

@@ -10,11 +10,11 @@ import {StatusBar as ExpoStatusBar} from 'expo-status-bar';
 import { useFonts } from 'expo-font';
 import React from 'react';
 import {Provider} from 'react-redux';
-import {createStore, combineReducers} from 'redux';
+import {createStore, combineReducers, applyMiddleware} from 'redux';
 import {persistReducer, persistStore} from "redux-persist";
-import { PersistGate} from "redux-persist/integration/react";
+import {PersistGate} from "redux-persist/integration/react";
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
-import storage from 'redux-persist/lib/storage';
 import {StatusBar, StyleSheet, SafeAreaView} from 'react-native';
 import {composeWithDevTools} from 'redux-devtools-extension'
 
@@ -23,13 +23,13 @@ import categoryReducer from './store/reducers/category';
 import productReducer from './store/reducers/products';
 import cartReducer from "./store/reducers/cart";
 import userReducer from "./store/reducers/user";
+import thunk from "redux-thunk";
 
 const persistConfig = {
     key: 'root',
-    storage,
+    storage: AsyncStorage,
     whitelist: ['cart']
 }
-
 
 const rootReducer = combineReducers({
     categories: categoryReducer,
@@ -39,7 +39,7 @@ const rootReducer = combineReducers({
 });
 
 const persist = persistReducer(persistConfig, rootReducer);
-const store = createStore(persist, composeWithDevTools());
+const store = createStore(persist, composeWithDevTools(), applyMiddleware(thunk));
 const persistor = persistStore(store);
 
 export default function App() {
@@ -60,7 +60,7 @@ export default function App() {
     }
   return (
       <Provider store={store}>
-          <PersistGate persistor={persistor}>
+          <PersistGate loading={null} persistor={persistor}>
               <SafeAreaView style={styles.container}>
                   <Navigator />
               </SafeAreaView>

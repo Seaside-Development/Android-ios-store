@@ -51,7 +51,8 @@ const styles = StyleSheet.create({
     },
     mainText: {
         fontFamily: 'OpenSansBold',
-        fontSize: 16
+        overflow: 'hidden',
+        fontSize: 12
     },
     deleteButton: {
         marginLeft: 20

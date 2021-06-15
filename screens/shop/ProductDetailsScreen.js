@@ -1,15 +1,14 @@
-import React from 'react';
-import {useSelector, useDispatch} from "react-redux";
+import React, {useState} from 'react';
+import {useDispatch} from "react-redux";
 import * as cartActions from '../../store/action/cart'
 import {
-  Text,
-  SafeAreaView,
-  StyleSheet,
-  StatusBar,
-  ScrollView,
-  Image,
-  View,
-  Button
+    Text,
+    SafeAreaView,
+    StyleSheet,
+    StatusBar,
+    Image,
+    View,
+    Button, ActivityIndicator, FlatList
 } from 'react-native';
 import Colors from '../../constants/Colors'
 import {HeaderButtons, Item} from "react-navigation-header-buttons";
@@ -17,46 +16,62 @@ import HeaderButton from "../../UI/HeaderButton";
 import ClickAlert from '../../components/alert.component'
 import * as Analytics from 'expo-firebase-analytics';
 
+const URI  =
+    'https://reactstore-836e1-default-rtdb.firebaseio.com/Products.json';
+
+
 const ProductsDetailsScreen = (props) => {
-  const productID = props.navigation.getParam('productID');
-  console.log(productID);
+    const productID = props.navigation.getParam('productID');
 
-  const selectedProduct = useSelector(
-      state => state.products
-          .storeProducts
-          .find(prod => prod.id === productID));
+    const getData = async () => {
+        try {
+            const response  = await fetch(URI);
+            const json = await response.json();
+            return json.filter(prod => prod.id === productID);
+        } catch (error) {
+            alert(error);
+        }
+    };
 
-  const dispatch = useDispatch();
-  return (
-      <ScrollView>
-        <SafeAreaView style={styles.container}>
-          <Image
-              style={styles.imageContainer}
-              source={{uri: selectedProduct.imageURL}}/>
+    const [itemData, setData] = useState([]);
+    getData().then(itemData => setData(itemData));
 
-          <View style={styles.action}>
-            <Button
-                color={Colors.primary}
-                title="ADD TO CART"
-                onPress={async () =>
-                {ClickAlert(); dispatch(cartActions.addItem(selectedProduct));
-                  await Analytics.logEvent('ButtonTapped',
-                      {
-                        name: 'add to cart',
-                        screen: 'productDetails',
-                        purpose: 'add item to cart',
-                      })
-                }}
-            />
-          </View>
-          <Text style={styles.price}>
-            ${selectedProduct.price.toFixed(2)}
-          </Text>
-          <Text style={styles.name}>
-            {selectedProduct.name}
-          </Text>
-        </SafeAreaView>
-      </ScrollView>
+    const dispatch = useDispatch();
+    return (
+      <SafeAreaView>
+          <FlatList
+              data={itemData}
+              keyExtractor={item => item.id.toString()}
+              renderItem={itemData => (
+                  <View>
+                      <Image
+                          style={styles.imageContainer}
+                          source={{uri: itemData.item.imageURL}}/>
+                      <View style={styles.action}>
+                          <Button
+                              color={Colors.primary}
+                              title="ADD TO CART"
+                              onPress={async () =>
+                              {ClickAlert(); dispatch(cartActions.addItem(itemData.item));
+                                  await Analytics.logEvent('ButtonTapped',
+                                      {
+                                          name: 'add to cart',
+                                          screen: 'productDetails',
+                                          purpose: 'add item to cart',
+                                      })
+                                  }}
+                              />
+                          </View>
+                      <Text style={styles.price}>
+                          ${itemData.item.price.toFixed(2)}
+                      </Text>
+                      <Text style={styles.name}>
+                          {itemData.item.name}
+                      </Text>
+                  </View>
+              )}
+          />
+      </SafeAreaView>
   );
 };
 

@@ -1,10 +1,5 @@
 import  UserActionTypes  from '../type/user'
 
-// export const setCurrentUser = user => ({
-//     type: UserActionTypes.SET_CURRENT_USER,
-//     payload: user
-// })
-
 // Google Sign in actions
 export const googleSignInStart = () => ({
     type: UserActionTypes.GOOGLE_SIGN_IN_START

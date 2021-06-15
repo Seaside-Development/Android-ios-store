@@ -37,11 +37,14 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "googleServicesFile": "./GoogleService-Info.plist"
     },
     "android": {
       "package": "com.myapp",
       "googleServicesFile": "./google-services.json"
-    }
+    },
+    "description": "Some app",
+    "githubUrl": "https://github.com/natebrate/ecomstore"
   }
 }

@@ -4,6 +4,7 @@ import {createAppContainer} from 'react-navigation';
 import {Platform} from 'react-native';
 
 import CategoryOverviewScreen from '../screens/shop/CategoryOverviewScreen';
+import CheckoutScreen from '../screens/shop/CheckoutScreen'
 import ProductsOverviewScreen from '../screens/shop/ProductsOverviewScreen';
 import ProductsDetailsScreen from '../screens/shop/ProductDetailsScreen';
 import ProductListScreen from '../screens/store/ProductListScreen';
@@ -45,6 +46,12 @@ const screens = {
       title: 'PRODUCT LIST',
     },
   },
+  Checkout: {
+    screen: CheckoutScreen,
+    navigation: {
+      title: 'CHECKOUT',
+    }
+  }
 };
 const ShopNavigator = createStackNavigator(screens, {
   defaultNavigationOptions: {

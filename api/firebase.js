@@ -1,13 +1,11 @@
-import firestore from '@react-native-firebase/firestore';
 import firebase from 'firebase/app'
-// Optionally import the services that you want to use
-//import "firebase/auth";
-//import "firebase/database";
-//import "firebase/firestore";
-//import "firebase/functions";
-//import "firebase/storage";
+import "firebase/functions";
+import "firebase/storage";
+import React from "react";
+import 'react-native-get-random-values';
+import { v4 as uuidv4 } from 'uuid';
 
-// Initialize Firebase
+//FIREBASE CREDENTIALS
 const firebaseConfig = {
   apiKey: "AIzaSyA6w5l4Jkmdv9EJ-ykGMyuAkOuri3WJzbw",
   authDomain: "reactstore-836e1.firebaseapp.com",
@@ -20,13 +18,31 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
-
-//get store collections
-export async function getProducts(productsRetrieved) {
-  const productList = [];
-  const snapshot = await firestore().collection('collections').get();
-  snapshot.forEach(doc => {
-    productList.push(doc.data);
-  });
-  productsRetrieved(productList);
+export function login({ email, password }) {
+  firebase.auth().signInWithEmailAndPassword(email, password)
+      .then((value) => console.log(value))
 }
+
+export function signup({ email, password, displayName }) {
+  firebase.auth().createUserWithEmailAndPassword(email, password)
+      .then((userInfo) => {
+        console.log(userInfo)
+        userInfo.user.updateProfile({ displayName: displayName.trim() })
+            .then(() => { })
+      })
+}
+
+export function subscribeToAuthChanges(authStateChanged) {
+  firebase.auth().onAuthStateChanged((user) => {
+    authStateChanged(user);
+  })
+}
+
+export function signout(onSignedOut) {
+  firebase.auth().signOut()
+      .then(() => {
+        onSignedOut();
+      })
+}
+
+export const firestore = firebase.firestore();

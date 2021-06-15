@@ -1,0 +1,119 @@
+{
+  "project_info": {
+    "project_number": "17091716918",
+    "firebase_url": "https://reactstore-836e1-default-rtdb.firebaseio.com",
+    "project_id": "reactstore-836e1",
+    "storage_bucket": "reactstore-836e1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:17091716918:android:ffcf3b1f82ee902d81f597",
+        "android_client_info": {
+          "package_name": "com.ecomstore"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "17091716918-e2c5bef2uvbj6ugtm1oio1fu7766s591.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCI4odx0wJ5IsihJz_BjKNH2eCke9taobo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "17091716918-13aoa1i6hhsg2vu02af72smq54ks727o.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "17091716918-5gdvjhui0eeo5mjku6o5tnpcnhas2at9.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.Bi3"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:17091716918:android:b0f21c95ebd0cf3081f597",
+        "android_client_info": {
+          "package_name": "com.example.storeapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "17091716918-e2c5bef2uvbj6ugtm1oio1fu7766s591.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCI4odx0wJ5IsihJz_BjKNH2eCke9taobo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "17091716918-13aoa1i6hhsg2vu02af72smq54ks727o.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "17091716918-5gdvjhui0eeo5mjku6o5tnpcnhas2at9.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.Bi3"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:17091716918:android:707fb5549174e1cc81f597",
+        "android_client_info": {
+          "package_name": "com.myapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "17091716918-e2c5bef2uvbj6ugtm1oio1fu7766s591.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCI4odx0wJ5IsihJz_BjKNH2eCke9taobo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "17091716918-13aoa1i6hhsg2vu02af72smq54ks727o.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "17091716918-5gdvjhui0eeo5mjku6o5tnpcnhas2at9.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.Bi3"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

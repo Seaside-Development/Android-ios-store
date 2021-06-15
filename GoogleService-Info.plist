@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>17091716918-vs94f1i0pmmdibqk9bctb3p4ppm7psjf.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.17091716918-vs94f1i0pmmdibqk9bctb3p4ppm7psjf</string>
+	<key>API_KEY</key>
+	<string>AIzaSyChm4owjWcRpFCmH4uQn6VcSDCm1qHeT3M</string>
+	<key>GCM_SENDER_ID</key>
+	<string>17091716918</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.me.myApp</string>
+	<key>PROJECT_ID</key>
+	<string>reactstore-836e1</string>
+	<key>STORAGE_BUCKET</key>
+	<string>reactstore-836e1.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:17091716918:ios:1239cf2dfcd5e2e481f597</string>
+	<key>DATABASE_URL</key>
+	<string>https://reactstore-836e1-default-rtdb.firebaseio.com</string>
+</dict>
+</plist>
