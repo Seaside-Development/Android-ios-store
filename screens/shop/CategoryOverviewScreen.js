@@ -1,5 +1,7 @@
 import React, {useEffect, useState} from 'react';
-import {ActivityIndicator, Button, FlatList, SafeAreaView, StyleSheet} from 'react-native';
+import {FlatList, SafeAreaView, StyleSheet, ActivityIndicator, Platform, TouchableNativeFeedback} from 'react-native';
+import {Button} from 'react-native-paper';
+
 import CategoryItem from '../../components/card.component';
 import HeaderButton from '../../UI/HeaderButton';
 import {HeaderButtons, Item} from 'react-navigation-header-buttons';
@@ -8,19 +10,17 @@ import Colors from "../../constants/Colors";
 const URI =
     'https://reactstore-836e1-default-rtdb.firebaseio.com/Categories.json';
 
-const getData = async () => {
-    try {
-        const response  = await fetch(URI);
-        const json = await response.json();
-        return json;
-    } catch (error) {
-        alert(error);
-    }
-};
-
 const CategoryOverviewScreen = ({navigation}) => {
+    const [isLoading, setLoading] = useState([]);
     const [data, setData] = useState([]);
-    getData().then(data => setData(data));
+
+    useEffect(() => {
+        fetch(URI)
+            .then(response => response.json())
+            .then(json => setData(json))
+            .catch(error => alert(error))
+            .finally(() => setLoading(false))
+    }, []);
 
     const selectCategoryHandler = name => {
         navigation.navigate('ProductsOverview', {
@@ -30,38 +30,40 @@ const CategoryOverviewScreen = ({navigation}) => {
 
     return (
         <SafeAreaView style={styles.container}>
-            <FlatList
-                data={data}
-                keyExtractor={item => item.id.toString()}
-                renderItem={itemData => (
-                    <CategoryItem
-                        image={itemData.item.imageURL}
-                        name={itemData.item.name}
-                        description={itemData.item.description}
-                        linkURL={itemData.item.linkURL}
-                        onSelect={() => {
-                            selectCategoryHandler(itemData.item.name);
-                        }}>
-                        <Button
-                            color={Colors.primary}
-                            title="VIEW MORE"
-                            onPress={() => {
-                                selectCategoryHandler(itemData.item.name);
-                            }}
-                        />
-                        <Button
-                            style={styles.actions}
-                            color={Colors.primary}
-                            title="SEE LIST"
-                            onPress={() => {
-                                navigation.navigate('ProductList', {
-                                    categoryName: itemData.item.name,
-                                });
-                            }}
-                        />
-                    </CategoryItem>
-                )}
-            />
+            {
+                isLoading ? <ActivityIndicator size="large" color="#00ff00"/>
+                    :
+                    <FlatList
+                        data={data}
+                        keyExtractor={item => item.id.toString()}
+                        renderItem={itemData => (
+                            <CategoryItem
+                                image={itemData.item.imageURL}
+                                name={itemData.item.name}
+                                description={itemData.item.description}
+                                linkURL={itemData.item.linkURL}
+                                onSelect={() => {
+                                    selectCategoryHandler(itemData.item.name);
+                                }}>
+                                <Button
+                                    color={Colors.primary}
+                                    onPress={() => {
+                                        selectCategoryHandler(itemData.item.name);
+                                    }}
+                                >VIEW MORE</Button>
+                                <Button
+                                    style={styles.actions}
+                                    color={Colors.primary}
+                                    onPress={() => {
+                                        navigation.navigate('ProductList', {
+                                            categoryName: itemData.item.name,
+                                        });
+                                    }}
+                                >TEST SCREEN</Button>
+                            </CategoryItem>
+                        )}
+                    />
+            }
         </SafeAreaView>
     );
 };

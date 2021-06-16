@@ -8,8 +8,9 @@ import {
     StatusBar,
     Image,
     View,
-    Button, ActivityIndicator, FlatList
+    FlatList
 } from 'react-native';
+import {Button} from 'react-native-paper';
 import Colors from '../../constants/Colors'
 import {HeaderButtons, Item} from "react-navigation-header-buttons";
 import HeaderButton from "../../UI/HeaderButton";
@@ -50,7 +51,6 @@ const ProductsDetailsScreen = (props) => {
                       <View style={styles.action}>
                           <Button
                               color={Colors.primary}
-                              title="ADD TO CART"
                               onPress={async () =>
                               {ClickAlert(); dispatch(cartActions.addItem(itemData.item));
                                   await Analytics.logEvent('ButtonTapped',
@@ -60,7 +60,7 @@ const ProductsDetailsScreen = (props) => {
                                           purpose: 'add item to cart',
                                       })
                                   }}
-                              />
+                          >ADD TO CART</Button>
                           </View>
                       <Text style={styles.price}>
                           ${itemData.item.price.toFixed(2)}

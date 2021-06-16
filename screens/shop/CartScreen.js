@@ -3,9 +3,9 @@ import {
     View,
     Text,
     StyleSheet,
-    Button,
     ActivityIndicator, Image
 } from 'react-native';
+import {Button} from 'react-native-paper';
 import {useSelector, useDispatch} from "react-redux";
 import {createStructuredSelector} from "reselect";
 import {selectCartItems, selectCartTotal} from "../../store/selectors/cart";
@@ -65,11 +65,11 @@ const CartScreen = props => {
                         <ActivityIndicator size="small" color={Colors.primary} />
                     ) : (
                         <Button
+                            color={Colors.primary}
                             disabled={cartItems.length === 0}
-                            color={Colors.accent}
-                            title='CHECK OUT'
-                            onPress={async () => {props.navigation.navigate('Checkout', {total})}}
-                        />
+                            onPress={async () => {props.navigation.navigate('Checkout', {total, cartItems})}}>
+                            CHECK OUT
+                        </Button>
                     )}
                 </View>
             </Card>
@@ -93,7 +93,7 @@ const CartScreen = props => {
                                 name="emptyCart"
                                 style={styles.icon}
                             />
-                            <Text>Your cart is empty!</Text>
+                            <Text>Add something to your cart!</Text>
                         </View>
                     )}
                 </View>

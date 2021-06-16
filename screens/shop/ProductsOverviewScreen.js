@@ -6,8 +6,10 @@ import {
   TouchableOpacity,
   Platform,
   TouchableNativeFeedback,
-  Button, ActivityIndicator, SafeAreaView
+  ActivityIndicator, SafeAreaView
 } from 'react-native';
+
+import {Button} from 'react-native-paper';
 
 import {Card} from 'react-native-elements';
 import * as cartActions from '../../store/action/cart'
@@ -43,7 +45,7 @@ const ProductsOverviewScreen = (props) => {
   return (
     <SafeAreaView style={styles.container}>
       {
-        isLoading ? <ActivityIndicator />
+        isLoading ? <ActivityIndicator size="large" color="#00ff00"/>
             :
         <FlatList
           data={data}
@@ -71,7 +73,6 @@ const ProductsOverviewScreen = (props) => {
                     <View style={styles.actions}>
                       <Button
                           color={Colors.primary}
-                          title="SEE MORE"
                           onPress={() => {
                             props.navigation.navigate('ProductsDetails', {
                               productName: itemData.item.name,
@@ -80,13 +81,12 @@ const ProductsOverviewScreen = (props) => {
                               productImage: itemData.item.imageURL,
                             });
                           }}
-                      />
+                      >SEE MORE</Button>
                       <Button
                           color={Colors.primary}
-                          title="ADD TO CART"
                           onPress={() => {
                             dispatch(cartActions.addItem(itemData.item))}}
-                      />
+                      >ADD TO CART </Button>
                     </View>
                   </Card>
                 </TouchableCmp>

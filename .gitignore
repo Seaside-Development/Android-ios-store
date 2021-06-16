@@ -2,6 +2,8 @@
 #
 .DS_Store
 
+functions/pay/index.js
+services/checkout.service.js
 # Xcode
 #
 build/

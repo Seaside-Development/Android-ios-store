@@ -6,6 +6,8 @@ import { View,
     Platform
 } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
+import {FontAwesome} from "@expo/vector-icons";
+import Colors from "../constants/Colors";
 
 const CartItem = ({deletable, onRemove, item: {price, name, quantity}}) => {
     return (
@@ -21,10 +23,10 @@ const CartItem = ({deletable, onRemove, item: {price, name, quantity}}) => {
                         onPress={onRemove}
                         style={styles.deleteButton}
                     >
-                        <Ionicons
-                            name={Platform.OS === 'android' ? 'md-trash' : 'ios-trash'}
+                        <FontAwesome
+                            name={Platform.OS === 'android' ? 'trash' : 'ios-trash'}
                             size={23}
-                            color="red"
+                            color="black"
                         />
                     </TouchableOpacity>
                 )}
@@ -45,8 +47,9 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     quantity: {
-        fontFamily: 'OpenSansRegular',
-        color: '#888',
+        fontFamily: 'OpenSansBold',
+        color: Colors.primary,
+        fontWeight: 'bold',
         fontSize: 16
     },
     mainText: {
