@@ -1,11 +1,19 @@
 import React, {useEffect, useState} from 'react';
-import {FlatList, SafeAreaView, StyleSheet, ActivityIndicator, Platform, TouchableNativeFeedback} from 'react-native';
+import {
+    FlatList,
+    SafeAreaView,
+    StyleSheet,
+    ActivityIndicator,
+    Platform,
+    TouchableNativeFeedback
+} from 'react-native';
 import {Button} from 'react-native-paper';
 
 import CategoryItem from '../../components/card.component';
 import HeaderButton from '../../UI/HeaderButton';
 import {HeaderButtons, Item} from 'react-navigation-header-buttons';
 import Colors from "../../constants/Colors";
+import CartTotal from "../../components/badge";
 
 const URI =
     'https://reactstore-836e1-default-rtdb.firebaseio.com/Categories.json';
@@ -29,7 +37,7 @@ const CategoryOverviewScreen = ({navigation}) => {
     };
 
     return (
-        <SafeAreaView style={styles.container}>
+        <SafeAreaView>
             {
                 isLoading ? <ActivityIndicator size="large" color="#00ff00"/>
                     :
@@ -44,7 +52,8 @@ const CategoryOverviewScreen = ({navigation}) => {
                                 linkURL={itemData.item.linkURL}
                                 onSelect={() => {
                                     selectCategoryHandler(itemData.item.name);
-                                }}>
+                                }}
+                            >
                                 <Button
                                     color={Colors.primary}
                                     onPress={() => {

@@ -6,18 +6,20 @@ import CheckoutScreen from '../screens/shop/CheckoutScreen'
 import {CheckoutSuccessScreen} from "../screens/store/checkout-success.screen";
 import {CheckoutErrorScreen} from "../screens/store/checkout-error.screen";
 
-const CheckoutStack = createStackNavigator();
+const screen = {
+    CheckoutScreen: {
+        screen: CheckoutScreen,
+    },
+    CheckoutSuccessScreen: {
+        screen: CheckoutSuccessScreen,
+    },
+    CheckoutErrorScreen: {
+        screen: CheckoutErrorScreen,
+    }
+}
 
-export const CheckoutNavigator = () => (
-    <CheckoutStack.Navigator headerMode="none">
-        <CheckoutStack.Screen name="Checkout" component={CheckoutScreen} />
-        <CheckoutStack.Screen
-            name="CheckoutSuccess"
-            component={CheckoutSuccessScreen}
-        />
-        <CheckoutStack.Screen
-            name="CheckoutError"
-            component={CheckoutErrorScreen}
-        />
-    </CheckoutStack.Navigator>
-);
+const CheckoutNavigator = createStackNavigator(screen, {
+    headerMode: "none",
+})
+
+export default CheckoutNavigator;

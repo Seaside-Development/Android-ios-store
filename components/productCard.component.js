@@ -11,7 +11,7 @@ import {
 
 import Card from '../UI/card';
 
-const CategoryItem = props => {
+const ProductItem = props => {
   let TouchableCmp = TouchableOpacity;
 
   if (Platform.OS === 'android' && Platform.Version >= 21) {
@@ -26,10 +26,12 @@ const CategoryItem = props => {
               <Image style={styles.image} source={{uri: props.image}} />
             </View>
             <View style={styles.details}>
-              <Text style={styles.title}>{props.name.toUpperCase()}</Text>
-              <Text style={styles.description}>{props.description}</Text>
+              <Text style={styles.title}>{props.name.toString().toUpperCase()}</Text>
+              <Text style={styles.price}>{props.price.toFixed(2)}</Text>
             </View>
-            <View style={styles.actions}>{props.children}</View>
+            <View style={styles.actions}>
+              {props.children}
+            </View>
           </View>
         </TouchableCmp>
       </View>
@@ -38,7 +40,7 @@ const CategoryItem = props => {
 };
 const styles = StyleSheet.create({
   product: {
-    height: 300,
+    height: 320,
     margin: 20,
   },
   touchable: {
@@ -66,15 +68,11 @@ const styles = StyleSheet.create({
     fontSize: 18,
     marginVertical: 2,
   },
-  description: {
+  price: {
     fontFamily: 'OpenSansBold',
     fontSize: 12,
     marginVertical: 2,
-  },
-  price: {
-    fontFamily: 'OpenSansRegular',
-    fontSize: 14,
-    color: '#888',
+    color: '#888'
   },
   actions: {
     flexDirection: 'row',
@@ -85,4 +83,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CategoryItem;
+export default ProductItem;

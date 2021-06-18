@@ -12,6 +12,7 @@ export const CheckoutErrorScreen = ({ route }) => {
                 style={styles.CartIconContainer}>
                 <View style={styles.CartIcon}>
                     <Icon
+                        size={128}
                         name="exclamation-triangle"
                         type='font-awesome'
                         bg={Colors.primary}
@@ -25,7 +26,8 @@ export const CheckoutErrorScreen = ({ route }) => {
 
 const styles = StyleSheet.create({
     CartIcon: {
-        size: 128,
+        height: 50,
+        width: 50,
     },
     CartIconContainer: {
         alignItems: "center",

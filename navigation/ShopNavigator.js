@@ -1,6 +1,5 @@
 import React from 'react';
 import {createStackNavigator} from 'react-navigation-stack';
-import {createAppContainer} from 'react-navigation';
 import {Platform} from 'react-native';
 
 import CategoryOverviewScreen from '../screens/shop/CategoryOverviewScreen';
@@ -56,7 +55,7 @@ const screens = {
 const ShopNavigator = createStackNavigator(screens, {
   defaultNavigationOptions: {
     headerStyle: {
-      backgroundColor: Platform.OS === 'android' ? Colors.primary : '',
+      backgroundColor: Platform.OS === 'android' ? Colors.accent : '',
       height: 45,
     },
     headerTitleStyle: 'OpenSansExtraBold',
@@ -67,5 +66,4 @@ const ShopNavigator = createStackNavigator(screens, {
   },
 });
 
-// export default ShopNavigator;
-export default createAppContainer(ShopNavigator);
+export default ShopNavigator;

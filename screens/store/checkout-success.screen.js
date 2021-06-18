@@ -10,6 +10,7 @@ export const CheckoutSuccessScreen  = ({ route }) => {
                 style={styles.CartIconContainer}>
                 <View style={styles.CartIcon}>
                     <Icon
+                        size={128}
                         name="check"
                         type='font-awesome'
                         bg={Colors.primary}
@@ -23,7 +24,8 @@ export const CheckoutSuccessScreen  = ({ route }) => {
 
 const styles = StyleSheet.create({
     CartIcon: {
-        size: 128,
+        height: 50,
+        width: 50,
     },
     CartIconContainer: {
         alignItems: "center",

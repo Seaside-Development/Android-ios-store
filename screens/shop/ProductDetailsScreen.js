@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useDispatch} from "react-redux";
 import * as cartActions from '../../store/action/cart'
 import {
@@ -8,7 +8,7 @@ import {
     StatusBar,
     Image,
     View,
-    FlatList
+    FlatList, ActivityIndicator
 } from 'react-native';
 import {Button} from 'react-native-paper';
 import Colors from '../../constants/Colors'
@@ -20,57 +20,58 @@ import * as Analytics from 'expo-firebase-analytics';
 const URI  =
     'https://reactstore-836e1-default-rtdb.firebaseio.com/Products.json';
 
-
 const ProductsDetailsScreen = (props) => {
     const productID = props.navigation.getParam('productID');
+    const [isLoading, setLoading] = useState([]);
+    const [data, setData] = useState([]);
 
-    const getData = async () => {
-        try {
-            const response  = await fetch(URI);
-            const json = await response.json();
-            return json.filter(prod => prod.id === productID);
-        } catch (error) {
-            alert(error);
-        }
-    };
+    useEffect(() => {
+        fetch(URI)
+            .then(response => response.json())
+            .then(json => setData(json.filter(prod => prod.id === productID)))
+            .catch(error => alert(error))
+            .finally(() => setLoading(false))
+    }, []);
 
-    const [itemData, setData] = useState([]);
-    getData().then(itemData => setData(itemData));
 
     const dispatch = useDispatch();
     return (
       <SafeAreaView>
-          <FlatList
-              data={itemData}
-              keyExtractor={item => item.id.toString()}
-              renderItem={itemData => (
-                  <View>
-                      <Image
-                          style={styles.imageContainer}
-                          source={{uri: itemData.item.imageURL}}/>
-                      <View style={styles.action}>
-                          <Button
-                              color={Colors.primary}
-                              onPress={async () =>
-                              {ClickAlert(); dispatch(cartActions.addItem(itemData.item));
-                                  await Analytics.logEvent('ButtonTapped',
-                                      {
-                                          name: 'add to cart',
-                                          screen: 'productDetails',
-                                          purpose: 'add item to cart',
-                                      })
-                                  }}
-                          >ADD TO CART</Button>
+          {
+              isLoading ? <ActivityIndicator size="large" color="#00ff00"/>
+                  :
+                  <FlatList
+                      data={data}
+                      keyExtractor={item => item.id.toString()}
+                      renderItem={itemData => (
+                          <View>
+                              <Image
+                                  style={styles.imageContainer}
+                                  source={{uri: itemData.item.imageURL}}/>
+                              <View style={styles.action}>
+                                  <Button
+                                      color={Colors.primary}
+                                      onPress={async () =>
+                                      {ClickAlert(); dispatch(cartActions.addItem(itemData.item));
+                                          await Analytics.logEvent('ButtonTapped',
+                                              {
+                                                  name: 'add to cart',
+                                                  screen: 'productDetails',
+                                                  purpose: 'added item to cart',
+                                              })
+                                      }}
+                                  >ADD TO CART</Button>
+                              </View>
+                              <Text style={styles.price}>
+                                  ${itemData.item.price.toFixed(2)}
+                              </Text>
+                              <Text style={styles.name}>
+                                  {itemData.item.name}
+                              </Text>
                           </View>
-                      <Text style={styles.price}>
-                          ${itemData.item.price.toFixed(2)}
-                      </Text>
-                      <Text style={styles.name}>
-                          {itemData.item.name}
-                      </Text>
-                  </View>
-              )}
-          />
+                      )}
+                  />
+          }
       </SafeAreaView>
   );
 };

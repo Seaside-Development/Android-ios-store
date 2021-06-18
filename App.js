@@ -18,7 +18,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import {StatusBar, StyleSheet, SafeAreaView} from 'react-native';
 import {composeWithDevTools} from 'redux-devtools-extension'
 
-import Navigator from './navigation/ShopNavigator';
+import Navigator from './navigation/TabNavigator';
 import categoryReducer from './store/reducers/category';
 import productReducer from './store/reducers/products';
 import cartReducer from "./store/reducers/cart";
